@@ -64,7 +64,7 @@ def main():
         }
 
         df = pd.DataFrame(data)
-
+        df.index = range(1, len(df) + 1)
         def format_func(value):
             return value.replace("\n", "<br>")
 
@@ -162,6 +162,7 @@ def main():
         ]
 
         df_impacts = pd.DataFrame(data_impacts)
+        df_impacts.index = range(1, len(df_impacts) + 1)
         html = df_impacts.to_html(escape=False)
         st.markdown(html, unsafe_allow_html=True)
 
