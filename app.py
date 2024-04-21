@@ -23,12 +23,16 @@ def main():
             This is particularly troublesome for the elderly population, who are a significant part of the clientele at certain branches. 
             Lengthy waits inconvenience customers and potentially deter them from future engagements with the bank, impacting customer retention and loyalty.
         """)
+        
+        st.markdown("---")
+        
         st.subheader("Background Information")
         st.write("""
             DBS Bank is a leading financial institution with over 280 branches across 18 markets, headquartered in Singapore.
             The bank has been continually expanding its presence in China, Southeast Asia, and South Asia. The DBS Digibank
             application was created to facilitate smarter banking by allowing users to manage their finances anytime, anywhere.
         """)
+        st.markdown("---")
         
         st.subheader("Development Bank of Singapore (DBS)")
         st.write("""
@@ -36,6 +40,7 @@ def main():
             - It is the largest local Singapore bank.
             - DBS has over 280 branches across 18 markets.
         """)
+        st.markdown("---")
         
         st.subheader("Definition of Common Terminology")
         st.write("""
@@ -43,10 +48,11 @@ def main():
             - **Station**: A specific area within DBS where customers interact with various service equipment such as ATMs, VTMs, and Counters.
             - **Equipment**: The array of machines or tables that are available at a particular station for customer use.
         """)
+        st.markdown("---")
         
         st.subheader("Identification of the Common Customer Journey")
         st.write("Customers typically arrive, queue at the ATMs/VTMs, interact with the Main Queue Manager, and may utilize various services such as the ATM, VTM, Counters, or the App Booth until their needs are resolved.")
-        
+        st.markdown("---")
         st.subheader("Overarching Problems")
         st.write("""
             - Long time spent at the bank.
@@ -58,11 +64,9 @@ def main():
 
     
     elif selected == "Our Solution":
-        st.header("Solutions")
-        # Link to external bank simulation
-        st.markdown("Try our bank simulation model here [Simulation](https://bank-simulation.netlify.app/)")
+        st.header("Our Solution")
+        st.markdown("Experience our bank simulation model here [Simulation](https://bank-simulation.netlify.app/)")
 
-        # Description of the solution from the documents
         st.write("""
         Our solution focuses on optimizing customer experience by reducing dwell times at DBS branches. By leveraging technology and improved process workflows, we aim to streamline customer interactions and minimize wait times.
 
@@ -73,6 +77,20 @@ def main():
 
         This multifaceted approach ensures that every aspect of the customer journey is refined to enhance overall satisfaction and retain customer loyalty.
         """)
+        st.markdown("---")
+        with st.container():
+            st.subheader("State Diagram")
+            st.image('assets/state_diagram.jpg', caption='State Diagram')
+        st.markdown("---")
+        with st.container():
+            st.subheader("Solutions Simulation Result Graphs")
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.image('assets/1.png', caption='Simulation Result 1')
+            with col2:
+                st.image('assets/2.png', caption='Simulation Result 2')
+            with col3:
+                st.image('assets/3.png', caption='Simulation Result 3')
 
 if __name__ == "__main__":
     main()
