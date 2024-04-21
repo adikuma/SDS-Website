@@ -1,11 +1,12 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 import pandas as pd
+import re
 
 def main():
-
+    st.set_page_config(layout="wide")
     st.markdown("""
-    <h1 style='color: #D71921;'>Simulating the Next Generation with DBS</h1>
+    <h1>Simulating the Next Generation with <span style='color: #D71921;'>DBS</span></h1>
     """, unsafe_allow_html=True)
     st.markdown("---")
 
@@ -18,7 +19,7 @@ def main():
                                default_index=0)
 
     if selected == "Problem Statement":
-        st.header("🎯 Problem Statement")
+        st.header("Problem Statement")
         video_file = open('assets/video.mp4', 'rb')
         video_bytes = video_file.read()
         st.video(video_bytes)
@@ -43,8 +44,10 @@ def main():
             - DBS has over 280 branches across 18 markets.
         """)
         st.markdown("---")
+        st.subheader("User Journey")
+        st.image('assets/journey.png', caption='User Journey')
+        st.markdown("---")
         st.subheader("Overarching Problems")
-        # Define the data for the table
         data = {
             "Stakeholder": [
                 "Customers",
@@ -53,24 +56,29 @@ def main():
                 "VTM-Assigned Staff"
             ],
             "Challenges": [
-                "• Language barriers\n• Conflicting information between the call centre, DBS website, and the branch",
-                "• Overwhelmed by the constant updates on the DigiBank app, cannot keep track\n• Miscommunication with branch staff causing inefficient and inaccurate services",
-                "• Struggles to direct customers based on tracking live traffic conditions\n• Will direct the customer to a different queue than what is needed",
-                "• Not aware of the latest DigiBank updates\n• Overwhelmed by the influx of customers\n• Are required to do a 2nd card verification, causing there to be a resource intensive 1-2 staff per booth any point in time"
+                "• Language barriers<br>• Conflicting information between the call centre, DBS website, and the branch",
+                "• Overwhelmed by the constant updates on the DigiBank app, cannot keep track<br>• Miscommunication with branch staff causing inefficient and inaccurate services",
+                "• Struggles to direct customers based on tracking live traffic conditions<br>• Will direct the customer to a different queue than what is needed",
+                "• Not aware of the latest DigiBank updates<br>• Overwhelmed by the influx of customers<br>• Are required to do a 2nd card verification, causing there to be a resource intensive 1-2 staff per booth any point in time"
             ]
         }
 
-        # Create a DataFrame
         df = pd.DataFrame(data)
 
-        # Display the table
-        st.table(df)
-        # st.subheader("Definition of Common Terminology")
-        # st.write("""
-        #     - **Dwell Time**: Queue Time + Holding Time (if any) + Service Time.
-        #     - **Station**: A specific area within DBS where customers interact with various service equipment such as ATMs, VTMs, and Counters.
-        #     - **Equipment**: The array of machines or tables that are available at a particular station for customer use.
-        # """)
+        def format_func(value):
+            return value.replace("\n", "<br>")
+
+        df['Challenges'] = df['Challenges'].apply(format_func)
+
+        st.markdown("""
+        <style>
+        th {
+            text-align: left;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
+        st.write(df.to_html(escape=False), unsafe_allow_html=True)
         st.markdown("---")
         
         st.subheader("Identification of the Common Customer Journey")
@@ -100,10 +108,13 @@ def main():
 
         This multifaceted approach ensures that every aspect of the customer journey is refined to enhance overall satisfaction and retain customer loyalty.
         """)
+        
+        st.image('assets/dbs.png', caption='Our Simulation App')
+
         st.markdown("---")
         with st.container():
             st.subheader("State Diagram")
-            st.image('assets/state_diagram.jpg', caption='State Diagram')
+            st.image('assets/state_diagram.jpg', caption='State Diagram of our Simulation')
         st.markdown("---")
         st.subheader("Solutions Simulation Result Graphs")
         st.write("Below are the results from our simulations showcasing the impact of our solutions:")
@@ -111,6 +122,50 @@ def main():
         st.image('assets/1.png', caption='Simulation Result 1')
         st.image('assets/2.png', caption='Simulation Result 2')
         st.image('assets/3.png', caption='Simulation Result 3')
+        st.subheader("Impacts of our Solution")
+        data_impacts = {
+            "Solution": [
+                "Central Knowledge Repository", 
+                "Staff Education for the Latest Digibank Updates",
+                "Simplified VTM Process through the Elimination of 2nd Verification",
+                "Central Digital Document Checklist"
+            ],
+            "Parameter Affected in the System": [
+                "Customer Arrival Rate: Reduced", 
+                "Prob. of QM Requiring Assistance: Removed\nProb. of QM Handling the Issue: Increased",
+                "Service Time for VTMs: Reduced\nNumber of App Booths: +1",
+                "Customer Arrival Rate: Reduced\nProb. of Customer Missing Documents: Removed\nProb. of QM Requiring Assistance: Increase\nProb. of QM Handling the Issue: Increased"
+            ],
+            "Justification": [
+                "Less customers would arrive based from inefficient instructions from the call center",
+                "QMs will be informed of the latest Digibank updates and will be able to handle issues by themselves",
+                "The additional time taken for the second verification in the VTMs will no longer be counted, and the staff that does these verifications can be allocated to the app booths",
+                "There will be no more need for customers to re-queue from retrieving their required documents"
+            ]
+        }
+
+        def colorize(text):
+            replacements = {
+                "Reduced": '<span style="color: yellow;">Reduced</span>',
+                "Removed": '<span style="color: red;">Removed</span>',
+                "\\+1": '<span style="color: green;">+1</span>',
+                "Increased": '<span style="color: green;">Increased</span>',
+                "Increase": '<span style="color: green;">Increase</span>'
+            }
+
+            for word, replacement in replacements.items():
+                text = re.sub(word, replacement, text)
+            return text
+
+        data_impacts["Parameter Affected in the System"] = [
+            colorize(text) for text in data_impacts["Parameter Affected in the System"]
+        ]
+
+        df_impacts = pd.DataFrame(data_impacts)
+        html = df_impacts.to_html(escape=False)
+        st.markdown(html, unsafe_allow_html=True)
+
+        st.markdown("---")
 
 if __name__ == "__main__":
     main()
