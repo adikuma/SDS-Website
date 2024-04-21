@@ -1,9 +1,13 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
+import pandas as pd
 
 def main():
 
-    # st.title("Simulating the Next Generation")
+    st.markdown("""
+    <h1 style='color: #D71921;'>Simulating the Next Generation with DBS</h1>
+    """, unsafe_allow_html=True)
+    st.markdown("---")
 
     with st.sidebar:
         
@@ -14,14 +18,12 @@ def main():
                                default_index=0)
 
     if selected == "Problem Statement":
-        st.header("Problem Statement")
+        st.header("🎯 Problem Statement")
         video_file = open('assets/video.mp4', 'rb')
         video_bytes = video_file.read()
         st.video(video_bytes)
         st.write("""
-            Improving customer satisfaction is crucial, especially for DBS, as customer dwell time averages around 45 minutes. 
-            This is particularly troublesome for the elderly population, who are a significant part of the clientele at certain branches. 
-            Lengthy waits inconvenience customers and potentially deter them from future engagements with the bank, impacting customer retention and loyalty.
+            How might we effectively reduce customer dwell time for offline transactions at the DBS branches to enhance customer satisfaction?
         """)
         
         st.markdown("---")
@@ -41,13 +43,34 @@ def main():
             - DBS has over 280 branches across 18 markets.
         """)
         st.markdown("---")
-        
-        st.subheader("Definition of Common Terminology")
-        st.write("""
-            - **Dwell Time**: Queue Time + Holding Time (if any) + Service Time.
-            - **Station**: A specific area within DBS where customers interact with various service equipment such as ATMs, VTMs, and Counters.
-            - **Equipment**: The array of machines or tables that are available at a particular station for customer use.
-        """)
+        st.subheader("Overarching Problems")
+        # Define the data for the table
+        data = {
+            "Stakeholder": [
+                "Customers",
+                "Call Center Customer Service Officers (CSO)",
+                "Queue Manager",
+                "VTM-Assigned Staff"
+            ],
+            "Challenges": [
+                "• Language barriers\n• Conflicting information between the call centre, DBS website, and the branch",
+                "• Overwhelmed by the constant updates on the DigiBank app, cannot keep track\n• Miscommunication with branch staff causing inefficient and inaccurate services",
+                "• Struggles to direct customers based on tracking live traffic conditions\n• Will direct the customer to a different queue than what is needed",
+                "• Not aware of the latest DigiBank updates\n• Overwhelmed by the influx of customers\n• Are required to do a 2nd card verification, causing there to be a resource intensive 1-2 staff per booth any point in time"
+            ]
+        }
+
+        # Create a DataFrame
+        df = pd.DataFrame(data)
+
+        # Display the table
+        st.table(df)
+        # st.subheader("Definition of Common Terminology")
+        # st.write("""
+        #     - **Dwell Time**: Queue Time + Holding Time (if any) + Service Time.
+        #     - **Station**: A specific area within DBS where customers interact with various service equipment such as ATMs, VTMs, and Counters.
+        #     - **Equipment**: The array of machines or tables that are available at a particular station for customer use.
+        # """)
         st.markdown("---")
         
         st.subheader("Identification of the Common Customer Journey")
@@ -82,15 +105,12 @@ def main():
             st.subheader("State Diagram")
             st.image('assets/state_diagram.jpg', caption='State Diagram')
         st.markdown("---")
-        with st.container():
-            st.subheader("Solutions Simulation Result Graphs")
-            col1, col2, col3 = st.columns(3)
-            with col1:
-                st.image('assets/1.png', caption='Simulation Result 1')
-            with col2:
-                st.image('assets/2.png', caption='Simulation Result 2')
-            with col3:
-                st.image('assets/3.png', caption='Simulation Result 3')
+        st.subheader("Solutions Simulation Result Graphs")
+        st.write("Below are the results from our simulations showcasing the impact of our solutions:")
+
+        st.image('assets/1.png', caption='Simulation Result 1')
+        st.image('assets/2.png', caption='Simulation Result 2')
+        st.image('assets/3.png', caption='Simulation Result 3')
 
 if __name__ == "__main__":
     main()
