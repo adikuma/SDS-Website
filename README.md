@@ -1,7 +1,6 @@
 # Project Website on Streamlit
 
-This project showcases a website built using Streamlit for our Systems Design Studio module @ SUTD.
-
+This is a Streamlit website showcasing our Systems Design Studio (module) project at SUTD.
 ## Getting Started
 
 To get this project up and running on your local machine, follow these steps:
