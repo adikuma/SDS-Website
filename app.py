@@ -80,17 +80,7 @@ def main():
 
         st.write(df.to_html(escape=False), unsafe_allow_html=True)
         st.markdown("---")
-        
-        st.subheader("Identification of the Common Customer Journey")
-        st.write("Customers typically arrive, queue at the ATMs/VTMs, interact with the Main Queue Manager, and may utilize various services such as the ATM, VTM, Counters, or the App Booth until their needs are resolved.")
-        st.markdown("---")
-        st.subheader("Overarching Problems")
-        st.write("""
-            - Long time spent at the bank.
-            - Poor allocation of resources (including manpower).
-            - Unclear and contradicting information for customers.
-            - Poor quality of service.
-        """)
+
         
 
     
