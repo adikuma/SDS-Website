@@ -2,24 +2,27 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 
 def main():
-    st.title("Simulating the Next Generation")
+
+    # st.title("Simulating the Next Generation")
 
     with st.sidebar:
+        
         selected = option_menu("Navigation",
                                ["Problem Statement",
-                                "Solutions",
-                                "State Diagram",
-                                "Solutions Simulation Result Graphs"],
+                                "Our Solution",],
                                icons=["book", "gear", "diagram-3", "graph-up"],
                                default_index=0)
 
     if selected == "Problem Statement":
         st.header("Problem Statement")
-        # Displaying a video from the assets folder
         video_file = open('assets/video.mp4', 'rb')
         video_bytes = video_file.read()
         st.video(video_bytes)
-        
+        st.write("""
+            Improving customer satisfaction is crucial, especially for DBS, as customer dwell time averages around 45 minutes. 
+            This is particularly troublesome for the elderly population, who are a significant part of the clientele at certain branches. 
+            Lengthy waits inconvenience customers and potentially deter them from future engagements with the bank, impacting customer retention and loyalty.
+        """)
         st.subheader("Background Information")
         st.write("""
             DBS Bank is a leading financial institution with over 280 branches across 18 markets, headquartered in Singapore.
@@ -52,29 +55,24 @@ def main():
             - Poor quality of service.
         """)
         
-        st.subheader("Problem Statement")
-        st.write("""
-            Improving customer satisfaction is crucial, especially for DBS, as customer dwell time averages around 45 minutes. 
-            This is particularly troublesome for the elderly population, who are a significant part of the clientele at certain branches. 
-            Lengthy waits inconvenience customers and potentially deter them from future engagements with the bank, impacting customer retention and loyalty.
-        """)
+
     
-    elif selected == "Solutions":
+    elif selected == "Our Solution":
         st.header("Solutions")
-        st.write("This section should detail the solutions you've developed to address the problem. "
-                 "You can discuss the methodologies, technologies, or algorithms employed in your solution.")
-    
-    elif selected == "State Diagram":
-        st.header("State Diagram")
-        st.write("Display the state diagram here. This diagram can illustrate the states and transitions "
-                 "involved in your system or solution. You might want to include a graphical representation "
-                 "if possible.")
-    
-    elif selected == "Solutions Simulation Result Graphs":
-        st.header("Solutions Simulation Result Graphs")
-        st.write("Here, you can present various graphs and visualizations that showcase the results "
-                 "of simulations run as part of your solutions. These graphs can provide insights into "
-                 "the effectiveness, efficiency, and performance of your proposed solutions.")
+        # Link to external bank simulation
+        st.markdown("Try our bank simulation model here [Simulation](https://bank-simulation.netlify.app/)")
+
+        # Description of the solution from the documents
+        st.write("""
+        Our solution focuses on optimizing customer experience by reducing dwell times at DBS branches. By leveraging technology and improved process workflows, we aim to streamline customer interactions and minimize wait times.
+
+        - **Enhanced Collaboration**: We've implemented a shared database for up-to-date customer information to allow for efficient and personalized service.
+        - **Staff Education**: Continuous education on the latest updates to the Digibank app helps staff provide informed assistance to customers, reducing the dependency on call centers and additional verification processes.
+        - **Simplified VTM Process**: We've eliminated redundancies such as the second verification step at VTMs to reduce service time.
+        - **Digital Document Checklist**: A new online resource provides customers with detailed information about the documents required for various services, which can help in preparing for their bank visits ahead of time.
+
+        This multifaceted approach ensures that every aspect of the customer journey is refined to enhance overall satisfaction and retain customer loyalty.
+        """)
 
 if __name__ == "__main__":
     main()
