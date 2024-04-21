@@ -145,6 +145,7 @@ def main():
         }
 
         def colorize(text):
+            text = text.replace("\n", "<br>")
             replacements = {
                 "Reduced": '<span style="color: yellow;">Reduced</span>',
                 "Removed": '<span style="color: red;">Removed</span>',
