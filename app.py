@@ -81,8 +81,6 @@ def main():
         st.write(df.to_html(escape=False), unsafe_allow_html=True)
         st.markdown("---")
 
-        
-
     
     elif selected == "Our Solution":
         st.header("Our Solution")
@@ -124,7 +122,7 @@ def main():
                 "Customer Arrival Rate: Reduced", 
                 "Prob. of QM Requiring Assistance: Removed\nProb. of QM Handling the Issue: Increased",
                 "Service Time for VTMs: Reduced\nNumber of App Booths: +1",
-                "Customer Arrival Rate: Reduced\nProb. of Customer Missing Documents: Removed\nProb. of QM Requiring Assistance: Increase\nProb. of QM Handling the Issue: Increased"
+                "Customer Arrival Rate: Reduced\nProb. of Customer Missing Documents: Removed\nProb. of QM Requiring Assistance: Increased\nProb. of QM Handling the Issue: Increased"
             ],
             "Justification": [
                 "Less customers would arrive based from inefficient instructions from the call center",
@@ -137,7 +135,7 @@ def main():
         def colorize(text):
             text = text.replace("\n", "<br>")
             replacements = {
-                "Reduced": '<span style="color: yellow;">Reduced</span>',
+                "Reduced": '<span style="color: green;">Reduced</span>',
                 "Removed": '<span style="color: red;">Removed</span>',
                 "\\+1": '<span style="color: green;">+1</span>',
                 "Increased": '<span style="color: green;">Increased</span>',
